@@ -256,5 +256,103 @@ Jak již bylo diskutováno v kapitole \ref{sec:outliers}, odlehlé hodnoty jsou 
 \section*{Chybějící hodnoty}
 V upravené datové sadě se vyskytují pouze dva záznamy, které obsahují chybějící hodnoty. V první variantě datové sady se s chybějícími hodnotami vypořádáme tak, že celé tyto dva záznamy odstraníme. Ve druhé variantě datové sady nahradíme hodnoty chybějících atributů průměrem ze všech přítomných hodnot pro daný atribut. 
 
+\section*{Diskretizácia kategorických atribútov}
+\paragraph{\texttt{Body Mass (g):}} Pri zobrazení histogramu hodnôt sme zhodnotili, že ich distribúcia dostatočne zodpovedá normálnemu rozdeleniu. Rozhodli sme sa použiť techniku equi-width binning. Vytvoreným kategorickým atribútom je \texttt{Body~Mass~cat}. 
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=7.8cm]{img/body_mass.png}
+  \caption{Histogram distribúcie hodnôt pôvodného atribútu \texttt{Body Mass (g)} a nového atribútu \texttt{Body~Mass~cat}.}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|}
+\hline
+ľahký                               \\
+ok                                  \\
+ťažký                               \\
+masívny                             \\
+monumentálny                        \\ \hline
+\end{tabular}
+\caption{Ordinálne zoradenie hodnôt atribútu \texttt{Body~Mass~cat}}
+\end{table}
+
+
+\paragraph{\texttt{Flipper Length (mm):}} Distribúcia hodôt nezodpovedá normálnemu rozdeleniu a tak je možné, že nie je správne zastúpený pomer jednotlivých počtov tučniakov s dĺžkou krídel príslušnej dĺžky (časť intervalu mohla byť podhodnotená). Pre tento atribút používame equi-depth binning, ktorý by mal toto podhodnotenie minimalizovať. Tieto transformované hodnoty sa nachádzajú v atribúte \texttt{Flipper Length cat}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=7.8cm]{img/flipper_length.png}
+  \caption{Histogram distribúcie hodnôt pôvodného atribútu \texttt{Flipper Length (mm)} a nového atribútu \texttt{Flipper Length cat}.}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|}
+\hline
+kratučký                                 \\
+krátky                                   \\
+normálny                                 \\
+dlhý                                     \\
+dlhatý                                   \\ \hline
+\end{tabular}
+\caption{Ordinálne zoradenie hodnôt atribútu \texttt{Flipper Length cat}}
+\end{table}
+
+\paragraph{\texttt{Culmen Depth (mm)}:} Po vykreslení histogramu sme opäť posúdili, že ide o normálne rozdelenie a teda používame kategórie reprezentujúce skupiny pevných dĺžok (equi-width binning). Kategorickým atribútom reprezentujúcim túto transformáciu je \texttt{Culmen Depth cat}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=7.8cm]{img/culmen_depth.png}
+  \caption{Histogram distribúcie hodnôt pôvodného atribútu \texttt{Culmen Depth (mm)} a nového atribútu \texttt{Culmen Depth cat}.}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|}
+\hline
+plytký        \\
+menej\_plytký \\
+klasický      \\
+hlboký        \\
+bezodný       \\ \hline
+\end{tabular}
+\caption{Ordinálne zoradenie hodnôt atribútu \texttt{Culmen Depth cat}}
+\end{table}
+
+
+
+\pagebreak
+\paragraph{\texttt{Culmen Length (mm)}:} 
+Na rovnakom závere sme sa zhodli aj pri tomto atribúte, ktorého transformácia je obsiahnutá v atribúte \texttt{Culmen Length cat}. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=7.8cm]{img/culmen_depth.png}
+  \caption{Histogram distribúcie hodnôt pôvodného atribútu \texttt{Culmen Length (mm)} a nového atribútu \texttt{Culmen Length cat}.}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|}
+\hline
+kratučký                                 \\
+krátky                                   \\
+normálny                                 \\
+dlhý                                     \\
+dlhatý                                   \\ \hline
+\end{tabular}
+\caption{Ordinálne zoradenie hodnôt atribútu \texttt{Culmen Length cat}}
+\end{table}
+
+Takto vytvorenú dátovú sadu s kategorickými atribútmi sme vyexportovali do súboru \texttt{penguins\_categorical.csv}.
+
+\section*{Normalizácia numerických atribútov}
+Pre druhú dátovú sadu, ktorá má byť určená pre modely pracujúce s numerickými atribútmi sme normalizovali hodnoty týchto numerických atribútov. Použili sme techniku normalizácie \textit{min-max}. Transformovanými numerickými atribútmi sú \texttt{Body Mass (g)}, \texttt{Flipper Length (mm)}, \texttt{Culmen Depth (mm)} a \texttt{Culmen Length (mm)}.
+
+\section*{Transformácia kategorických atribútov na numerické}
+V datasete sa vyskytuje jediný kategorický atribút \texttt{Island}. Pre jeho prevod do numerického atribútu sme použili technik One-Hot Encoding. V našom prípade je vhodné použiť, nakoľko tento atribút nadobúda len tri rozličné hodnoty, čo znamená, že pôvodný atribút bude nahradený tromi novými atribútmi, z ktorých každý bude reprezentovať jednu z možných hodnôt atribútu \texttt{Island}. Každý z týchto atribútov bude obsahovať hodnotu 1 ak daný sledovaný objekt mal v pôvodnom atribúte jeho hodnotu. Inak bude obsahovať hodnotu 0.
+
+Takto vytvorenú dátovú sadu s numerickými atribútmi sme vyexportovali do súboru \texttt{penguins\_numerical.csv}.
 \end{document}
