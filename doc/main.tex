@@ -40,7 +40,7 @@
 
 \chapter{Dátová sada}
 
-V tomto projekte sa zaoberáme exploráciou, čistením a tvorbou popisnej charakteristiky pre open-source dátovú sadu 
+V tomto projekte sa zaoberáme exploráciou, čistením a tvorbou popisnej charakteristiky pre open-source dátovú sadu
 \textit{Palmer Archipelago (Antarctica) penguin data}. Ide o dátovú sadu, ktorej obsahom sú informácie o fyziologických a demografických vlastnostiach troch druhov tučniakov. Dataset obsahuje súbory \texttt{penguins\_lter.csv} a \texttt{penguins\_size.csv}. Oba obsahujú informácie k rovnakým jedincom,  no \texttt{penguins\_lter.csv} poskytuje okrem informácií obsiahnutých v \texttt{penguins\_size.csv} aj dáta k hodnotám stabilných izotopov uhlíka  ($\delta^{13}$C)  a dusíka  ($\delta^{15}$N)  v tele. Tieto údaje sa používajú už od roku 1980  poskytujú hodnotné informácie k životospráve a migračným vzorcom tučniakov. Preto pre naše účely využívame informácie obsiahnuté v \texttt{penguins\_lter.csv}.
 
 \chapter{Exploratívna analýza}
@@ -55,8 +55,8 @@ Dataset obsahuje v atribúte \texttt{Species} názov jedného z troch druhov  tu
 \end{enumerate}
 
 \begin{figure}[h]
-\includegraphics[width=10cm]{img/species.png}
-\centering
+  \includegraphics[width=10cm]{img/species.png}
+  \centering
 \end{figure}
 \pagebreak
 
@@ -72,8 +72,8 @@ Podľa datasetu, každý druh obýva niektoré z nižšie uvedených ostrovov. D
 \end{enumerate}
 
 \begin{figure}[h]
-\includegraphics[width=8cm]{img/island.png}
-\centering
+  \includegraphics[width=8cm]{img/island.png}
+  \centering
 \end{figure}
 
 
@@ -93,12 +93,54 @@ Dĺžka krídel tučniaka je obsiahnutá vo \texttt{Flipper Length (mm)} a takti
 Pohlavie je uvedené v atribúte \texttt{Sex}. Vidíme, že jedna z položiek tohto atribútu obsahuje nevalidnú hodnotu '.'.
 
 \begin{figure}[t]
-\includegraphics[width=8cm]{img/the_thing.png}
-\centering
+  \includegraphics[width=8cm]{img/the_thing.png}
+  \centering
 \end{figure}
 
 Ďalšími z relevantných atribútov sú už spomínané ($\delta^{13}$C) a ($\delta^{15}$N) uvedené v atribútoch \texttt{Delta 13 C (o/oo)} a \texttt{Delta 15 N (o/oo)}.
 % Samo, viac nemam sajnu co by som ti tu este mohol dopisat tak to necham na teba :)
+
+\section*{Odlehlé hodnoty}
+Odlehlé hodnoty v datové sadě jsme hledali pomocí mezikvartilového rozpětí (IQR). Pro odlehlou hodnotu musí platit, že je menší než $q_1 - 1.5 \cdot \textrm{IQR}$ nebo větší než $q_3 + 1.5 \cdot \textrm{IQR}$, kde $q_1$ a $q_3$ jsou hodnoty prvního a třetího kvartilu. Takové hodnoty má smysl hledat pouze u numerických atributů.
+
+Pro žádný z atributů jsme nenašli odlehlé hodnoty, když jsme uvažovali celou datovou sadu. Jelikož se ale hodnoty atributů jako délka křídel a zobáku určitě liší v závislosti na druhu tučňáka, rozhodli jsme se hledat odlehlé hodnoty atributů pro jednotlivé druhy tučňáků.
+Tam už jsme odlehlé hodnoty našli.
+
+
+\section*{Chybějící hodnoty}
+\begin{table}[]
+  \centering
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+    \hline
+     \textbf{Název atributu} & \textbf{Počet chybějících hodnot} \\ \hline
+     Name & 0 / 344 \\ \hline
+     Sample number &  0 / 344 \\ \hline
+     Species & 0 / 344\\ \hline
+     Island & 0 / 344\\ \hline
+     Stage & 0 / 344 \\ \hline
+     Individual ID & 0 / 344 \\ \hline
+     Clutch completion & 0 / 344\\ \hline
+     Date egg & 0 / 344 \\ \hline
+     Sex & 10 / 344 \\ \hline
+     Comments & 318 / 344 \\ \hline
+     Culmen length & 2 / 344\\ \hline
+     Culmen depth & 2 / 344\\ \hline
+     Flipper length & 2 / 344\\ \hline
+     Body mass & 2 / 344\\ \hline
+     Delta 13 & 13 / 344\\ \hline
+     Delta 15 & 14 / 344 \\ \hline
+  \end{tabular}
+  \caption{Počty chybějících hodnot}
+  \label{tab:missing}
+\end{table}
+
+Dále jsme zkoumali počet chybějících hodnot u jednotlivých atributů. Výsledky analýzy jsou uvedeny v tabulce \ref{tab:missing}.
+Celkově chybí 35 numerických hodnot, 10 hodnot u pohlaví tučňáka a 318 komentářů. Chybějící komentáře ovšem nejsou důležité, obsahují pouze nějakou přidanou informaci a neočekává se, že by tato hodnota měla být přítomna u všech tučňáků. 
+
+Pokud pomineme atribut \texttt{Comments}, je zcela vyplněných řádků v tabulce 325, těch kde tedy chybí alespoň jedna hodnota je 19. (Řádků, které jsou zaplněny zcela, včetně komentářů, je 13.) 
+Z celkových 19 řádků je 13 řádků, ve kterých chybí hodnota více než jednoho atributu. Nejvíce hodnot chybí na řádku 3 a 339 (což odpovídá řádkům 5 a 341 po otevření v Excelu) -- na každém z těchto řádků je 7 chybějících hodnot. 
+
+
 
 \chapter{Príprava dátovej sady pre dolovacie algoritmy}
 % Barbora s tymto ti nepomozem :)
