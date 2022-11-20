@@ -202,6 +202,7 @@ Posledný vzťah, na ktorý sme sa pozreli ako potenciálneho kandidáta na klas
 
 \FloatBarrier
 \section{Odlehlé hodnoty}
+\label{sec:outliers}
 Odlehlé hodnoty v datové sadě jsme hledali pomocí mezikvartilového rozpětí (IQR). Pro odlehlou hodnotu musí platit, že je menší než $q_1 - 1.5 \cdot \textrm{IQR}$ nebo větší než $q_3 + 1.5 \cdot \textrm{IQR}$, kde $q_1$ a $q_3$ jsou hodnoty prvního a třetího kvartilu. Takové hodnoty má smysl hledat pouze u numerických atributů.
 
 Pro žádný z atributů jsme nenašli odlehlé hodnoty, když jsme uvažovali celou datovou sadu. Jelikož se ale hodnoty atributů jako délka křídel a zobáku určitě liší v závislosti na druhu tučňáka, rozhodli jsme se hledat odlehlé hodnoty atributů pro jednotlivé druhy tučňáků.
@@ -245,6 +246,15 @@ Z celkových 19 řádků je 13 řádků, ve kterých chybí hodnota více než j
 
 \chapter{Príprava dátovej sady pre dolovacie algoritmy}
 % Barbora s tymto ti nepomozem :)
+
+\section*{Dolovací úloha a odstranění irelevantních atributů}
+Jako dolovací úloha byla zvolena klasifikace druhů tučňáků na základě ostatních atributů. Jako atributy, ze kterých se dá druh tučňáka odvodit, jsme zvolili \texttt{Island}, \texttt{Culmen length}, \texttt{Culmen Depth}, \texttt{Flipper Length} a \texttt{Body Mass}. Vliv hodnot těchto atributů na druh tučňáka můžeme pozorovat v grafech \ref{fig:flbm}, \ref{fig:islanddist} a \ref{fig:clusters}. Ostatní atributy považujeme v naší dolovací úloze za irelevantní a proto jsme je z datové sady odstranili. 
+
+\section*{Odlehlé hodnoty}
+Jak již bylo diskutováno v kapitole \ref{sec:outliers}, odlehlé hodnoty jsou v datové sadě přítomné pouze v případě, že zkoumáme hodnoty atributů pro každý druh tučňáka zvlášť. Jelikož ale v naší upravené datové sadě pro dolování nemáme atribut \texttt{Species}, toto rozdělení neprovádíme a datová sada žádné odlehlé hodnoty neobsahuje. 
+
+\section*{Chybějící hodnoty}
+V upravené datové sadě se vyskytují pouze dva záznamy, které obsahují chybějící hodnoty. V první variantě datové sady se s chybějícími hodnotami vypořádáme tak, že celé tyto dva záznamy odstraníme. Ve druhé variantě datové sady nahradíme hodnoty chybějících atributů průměrem ze všech přítomných hodnot pro daný atribut. 
 
 
 \end{document}
