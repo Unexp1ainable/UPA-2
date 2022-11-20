@@ -44,61 +44,106 @@ V tomto projekte sa zaoberáme exploráciou, čistením a tvorbou popisnej chara
 \textit{Palmer Archipelago (Antarctica) penguin data}. Ide o dátovú sadu, ktorej obsahom sú informácie o fyziologických a demografických vlastnostiach troch druhov tučniakov. Dataset obsahuje súbory \texttt{penguins\_lter.csv} a \texttt{penguins\_size.csv}. Oba obsahujú informácie k rovnakým jedincom,  no \texttt{penguins\_lter.csv} poskytuje okrem informácií obsiahnutých v \texttt{penguins\_size.csv} aj dáta k hodnotám stabilných izotopov uhlíka  ($\delta^{13}$C)  a dusíka  ($\delta^{15}$N)  v tele. Tieto údaje sa používajú už od roku 1980  poskytujú hodnotné informácie k životospráve a migračným vzorcom tučniakov. Preto pre naše účely využívame informácie obsiahnuté v \texttt{penguins\_lter.csv}.
 
 \chapter{Exploratívna analýza}
+Táto kapitola sa venuje
+\section{Atribúty}
 
-Prvým z atribútov, ktorý sa medzi jednotlivými položkami datasetu nelíši je \texttt{studyName}, ten obsahuje pre každého jedince rovnakú hodnotu \textit{PAL0708}.
+\subsection*{studyName}
+Tento atribút obsahuje identifikátor štúdie, z ktorej dáta pochádzajú. Celkovo sú identifikátory tri, a to \texttt{PAL0708}(s počtom 110), \texttt{PAL0809}(114 prvkov) a \texttt{PAL0910}(počet prvkov 120).
 
-Dataset obsahuje v atribúte \texttt{Species} názov jedného z troch druhov  tučniakov
-\begin{enumerate}
+\subsection*{Sample Number}
+Poradové číslo záznamu vzťahujúce sa na konkrétnu štúdiu.
+
+\subsection*{Species}
+Dataset obsahuje v atribúte \texttt{Species} názov jedného z troch druhov tučniakov
+\begin{itemize}
   \item Adelie Penguin (Pygoscelis adeliae)
   \item Chinstrap penguin (Pygoscelis antarctica)
   \item Gentoo penguin (Pygoscelis papua)
-\end{enumerate}
+\end{itemize}
 
+
+V dátach dominuje Adelie penguin, nasledovaný tučniakom Gentoo a Chinstrap, ako je vidieť na grafe \ref{fig:species_graph}.
 \begin{figure}[h]
-  \includegraphics[width=10cm]{img/species.png}
+  \includegraphics[width=9cm]{img/species.png}
   \centering
+  \caption{Histogram počtu tučniakov podľa druhu}
+  \label{fig:species_graph}
 \end{figure}
-\pagebreak
 
 
+\subsection*{Region}
+V atribúte \texttt{Region} je uvedená oblasť výskytu daného jedinca. Táto je pre každého z nich rovnaká a obsahuje hodnotu \textit{Anvers}.
 
 
-
-Podľa datasetu, každý druh obýva niektoré z nižšie uvedených ostrovov. Demografické rozloženie sa medzi druhmi líši. Informácia je obsiahnutá v atribúte \texttt{Island}.
-\begin{enumerate}
+\subsection*{Island}
+Informácia obsiahnutá v tomto atribúte označuje ostrov, ktorý obýva jedinec na zázname. Demografické rozloženie sa medzi druhmi líši, ako je vidno na grafe \ref{fig:counts}.
+Atribút obsahuje tieto tri hodnoty.
+\begin{itemize}
   \item Torgersen
   \item Biscoe
   \item Dream
-\end{enumerate}
+\end{itemize}
 
 \begin{figure}[h]
-  \includegraphics[width=8cm]{img/island.png}
+  \includegraphics[width=7.5cm]{img/island.png}
   \centering
+  \caption{Počty tučniakov na ostrovoch, ako sú uvedené v datasete.}
+  \label{fig:counts}
 \end{figure}
 
 
 
-V atribúte \texttt{Region} je uvedená oblasť výskytu daného jedinca. Táto je pre každého z nich rovnaká a obsahuje hodnotu \textit{Anvers}.
-
-Atribútom \texttt{Stage} uvádza pre každého jedinca rovnakú hodnotu \textit{Adult,~1~Egg~Stage}. Identifikátor každého z jedincov je v atribúte \texttt{Individual~ID}.
-
-\texttt{Clutch Completion} obsahuje informáciu o tom, či bol jedince pozorovaný s hniezdom obsahujúcim viac ako 2 vajíčka. \texttt{Date Egg} uvádza dátum, kedy bol záznam k danému jedincovi vytvorený.
-
-Atribúty \texttt{Culmen Length (mm)} a  \texttt{Culmen Depth (mm)} poskytujú rozmery zobáku. Jeho   výšku a dĺžku v milimetroch, v tomto poradí.
-Dĺžka krídel tučniaka je obsiahnutá vo \texttt{Flipper Length (mm)} a taktiež je v milimetroch. Telesnú hmotnosť v gramoch poskytuje atribút \texttt{Body Mass (g)}.
+\subsection*{Stage}
+Atribútom \texttt{Stage} uvádza pre každého jedinca rovnakú hodnotu \textit{Adult,~1~Egg~Stage}.
 
 
+\subsection*{Individual ID}
+Identifikátor každého z jedincov. Neexistuje záznam bez tejto hodnoty. V datasete sa ale nachádza len 190 unikátnych identifikátorov, pričom celkový počet záznamov je 344.
 
-\newpage
-Pohlavie je uvedené v atribúte \texttt{Sex}. Vidíme, že jedna z položiek tohto atribútu obsahuje nevalidnú hodnotu '.'.
+
+\subsection*{Clutch completion}
+\texttt{Clutch Completion} obsahuje informáciu o tom, či bol jedince pozorovaný s hniezdom obsahujúcim 2 vajíčka. Obsahuje
+hodnoty, "Yes" a "No". Skoro 90\% jedincov má v záznamoch uvedené "Yes".
+
+
+\subsection*{Date egg}
+Dátum, kedy bolo hniezdo prvý krát pozorované s 1 vajíčkom.
+
+
+\subsection*{Culmen length (mm) a Culmen depth (mm)}
+Atribúty \texttt{Culmen Length (mm)} a  \texttt{Culmen Depth (mm)} poskytujú rozmery zobáku. Culmen length označuje jeho dĺžku v milimetroch, zatiaľ čo Culmen depth označuje jeho výšku. Hodnoty pre Culmen length sú v intervale od 32.1 do 59.6 mm, so strednou hodnotou 43.92mm a štandardnou odchýlkou 5.46. Culmen depth má hodnoty od 13.1 do 21.5 mm, stredná hodnota 17.15 a odchýlka 1.97.
+
+
+\subsection*{Flipper length (mm)}
+Dĺžka krídel tučniaka je obsiahnutá v atribúte \texttt{Flipper Length (mm)} a taktiež je v milimetroch. Stredná hodnota je 200.9 mm, so štandardnou odchýlkou 14 mm. Namerané maximum je 231 mm a minimum 172 mm.
+
+
+\subsection*{Body mass (g)}
+Telesnú hmotnosť v gramoch poskytuje atribút \texttt{Body Mass (g)}. Najtučnejší tučniak váži 6.3 kg. Na druhom konci spektra sa nachádza tučniak s hmotnosťou 2.7 kg. Stredná hodnota je 4.2 kg a štandardná odchýlka 0.8 kg.
+
+
+\subsection*{Sex}
+Pohlavie jedinca. Táto hodnota nie je vždy uvedená, a v jednom prípade jedna z položiek tohto atribútu obsahuje nevalidnú hodnotu '.' \ref{fig:the_thing}.
 
 \begin{figure}[t]
   \includegraphics[width=8cm]{img/the_thing.png}
   \centering
+  \caption{Histogram pohlaví tučniakov s nevyfiltrovanou nevalidnou hodnotou.}
+  \label{fig:the_thing}
 \end{figure}
 
-Ďalšími z relevantných atribútov sú už spomínané ($\delta^{13}$C) a ($\delta^{15}$N) uvedené v atribútoch \texttt{Delta 13 C (o/oo)} a \texttt{Delta 15 N (o/oo)}.
-% Samo, viac nemam sajnu co by som ti tu este mohol dopisat tak to necham na teba :)
+
+\subsection*{Delta 15 N (o/oo)}
+Stabilný izotop dusíka. Meranie tohoto atribútu prebehlo 330 krát. Stredná hodnota je 8.73 so štandardnou odchýlkou 0.551. Namerané maximum je 10.03 a minimum 7.63.
+
+
+\subsection*{Delta 13 C (o/oo)}
+Atribút s meraniami stabilných izotopov uhlíka. Podobne ako pri Delta 15 N, dataset obsahuje 330 záznamov s týmito hodnotami. Stredná hodnota je -25.69 a štandardná odchýlka 0.79. Maximum je -23.787 a minimum je -27.02.
+
+
+\subsection*{Comments}
+Tento atribút je pomerne zriedka vyplnený a obsahuje slovné poznámky k niektorým meraniam. Z hľadiska strojového spracovania dát je irelevantný.
+
 
 \section*{Odlehlé hodnoty}
 Odlehlé hodnoty v datové sadě jsme hledali pomocí mezikvartilového rozpětí (IQR). Pro odlehlou hodnotu musí platit, že je menší než $q_1 - 1.5 \cdot \textrm{IQR}$ nebo větší než $q_3 + 1.5 \cdot \textrm{IQR}$, kde $q_1$ a $q_3$ jsou hodnoty prvního a třetího kvartilu. Takové hodnoty má smysl hledat pouze u numerických atributů.
@@ -112,33 +157,33 @@ Tam už jsme odlehlé hodnoty našli.
   \centering
   \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
     \hline
-     \textbf{Název atributu} & \textbf{Počet chybějících hodnot} \\ \hline
-     Name & 0 / 344 \\ \hline
-     Sample number &  0 / 344 \\ \hline
-     Species & 0 / 344\\ \hline
-     Island & 0 / 344\\ \hline
-     Stage & 0 / 344 \\ \hline
-     Individual ID & 0 / 344 \\ \hline
-     Clutch completion & 0 / 344\\ \hline
-     Date egg & 0 / 344 \\ \hline
-     Sex & 10 / 344 \\ \hline
-     Comments & 318 / 344 \\ \hline
-     Culmen length & 2 / 344\\ \hline
-     Culmen depth & 2 / 344\\ \hline
-     Flipper length & 2 / 344\\ \hline
-     Body mass & 2 / 344\\ \hline
-     Delta 13 & 13 / 344\\ \hline
-     Delta 15 & 14 / 344 \\ \hline
+    \textbf{Název atributu} & \textbf{Počet chybějících hodnot} \\ \hline
+    Name                    & 0 / 344                           \\ \hline
+    Sample number           & 0 / 344                           \\ \hline
+    Species                 & 0 / 344                           \\ \hline
+    Island                  & 0 / 344                           \\ \hline
+    Stage                   & 0 / 344                           \\ \hline
+    Individual ID           & 0 / 344                           \\ \hline
+    Clutch completion       & 0 / 344                           \\ \hline
+    Date egg                & 0 / 344                           \\ \hline
+    Sex                     & 10 / 344                          \\ \hline
+    Comments                & 318 / 344                         \\ \hline
+    Culmen length           & 2 / 344                           \\ \hline
+    Culmen depth            & 2 / 344                           \\ \hline
+    Flipper length          & 2 / 344                           \\ \hline
+    Body mass               & 2 / 344                           \\ \hline
+    Delta 13                & 13 / 344                          \\ \hline
+    Delta 15                & 14 / 344                          \\ \hline
   \end{tabular}
   \caption{Počty chybějících hodnot}
   \label{tab:missing}
 \end{table}
 
 Dále jsme zkoumali počet chybějících hodnot u jednotlivých atributů. Výsledky analýzy jsou uvedeny v tabulce \ref{tab:missing}.
-Celkově chybí 35 numerických hodnot, 10 hodnot u pohlaví tučňáka a 318 komentářů. Chybějící komentáře ovšem nejsou důležité, obsahují pouze nějakou přidanou informaci a neočekává se, že by tato hodnota měla být přítomna u všech tučňáků. 
+Celkově chybí 35 numerických hodnot, 10 hodnot u pohlaví tučňáka a 318 komentářů. Chybějící komentáře ovšem nejsou důležité, obsahují pouze nějakou přidanou informaci a neočekává se, že by tato hodnota měla být přítomna u všech tučňáků.
 
-Pokud pomineme atribut \texttt{Comments}, je zcela vyplněných řádků v tabulce 325, těch kde tedy chybí alespoň jedna hodnota je 19. (Řádků, které jsou zaplněny zcela, včetně komentářů, je 13.) 
-Z celkových 19 řádků je 13 řádků, ve kterých chybí hodnota více než jednoho atributu. Nejvíce hodnot chybí na řádku 3 a 339 (což odpovídá řádkům 5 a 341 po otevření v Excelu) -- na každém z těchto řádků je 7 chybějících hodnot. 
+Pokud pomineme atribut \texttt{Comments}, je zcela vyplněných řádků v tabulce 325, těch kde tedy chybí alespoň jedna hodnota je 19. (Řádků, které jsou zaplněny zcela, včetně komentářů, je 13.)
+Z celkových 19 řádků je 13 řádků, ve kterých chybí hodnota více než jednoho atributu. Nejvíce hodnot chybí na řádku 3 a 339 (což odpovídá řádkům 5 a 341 po otevření v Excelu) -- na každém z těchto řádků je 7 chybějících hodnot.
 
 
 
