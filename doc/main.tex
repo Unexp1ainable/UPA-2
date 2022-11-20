@@ -11,6 +11,7 @@
 \usepackage{hyperref}% hyper-refs in PDF
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{placeins}
 
 \author{
   Marek Mudroň\\
@@ -144,15 +145,70 @@ Atribút s meraniami stabilných izotopov uhlíka. Podobne ako pri Delta 15 N, d
 \subsection*{Comments}
 Tento atribút je pomerne zriedka vyplnený a obsahuje slovné poznámky k niektorým meraniam. Z hľadiska strojového spracovania dát je irelevantný.
 
+\newpage
+\section{Analýza vzťahov}
+Na získanie prvotného pohľadu na vzťahy sme vytvorili korelačnú maticu \ref{fig:corr}. Môžeme z nej vyčítať rôzne informácie, ako napríklad že hmotnosť je silno korelovaná s dĺžkou krídel, čo sa dá intuitívne čakať. Nie až také intuitívne je, že výška zobáka je trochu inverzne korelovaná s dĺžkou krídel.
 
-\section*{Odlehlé hodnoty}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{img/corr.png}
+  \caption{Korelačná matica číselných atribútov}
+  \label{fig:corr}
+\end{figure}
+\FloatBarrier
+
+Bližší náhľad na koreláciu hmotnosti a dĺžky krídlel nám poskytol graf \ref{fig:flbm}. Vidno, že na atribútoch existuje pomerne silná závislosť, ktorá sa dá aproximovať priamkov (aj keď nie veľmi presne.)
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{img/flbm.png}
+  \caption{Dĺžka krídel vzhľadom k hmotnosti}
+  \label{fig:flbm}
+\end{figure}
+\FloatBarrier
+
+Zaujímavý je aj pohľad na dáta z hľadiska druhov, teda ktorý druh obýva ktorý ostrov. Bol predpoklad, že jeden druh obýva len jeden ostrov. Graf \ref{fig:islanddist} to do istej miery aj potvrdzuje, pretože tučniaky druhu Chinstrap a Gentoo sa naozaj nachádzajú len na jednom ostrove. Druh Adelie je ale na všetkých.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{img/distribution_species.png}
+  \caption{Distribúcia druhov po ostrovoch}
+  \label{fig:islanddist}
+\end{figure}
+
+Vzťah medzi dĺžkou a výškou zobáka je niečo, čo by človek prirodzene čakal. Napriek tomu korelácia je takmer nulová.  Po vygrafovaní týchto parametrov vznikol pomerne chaotický graf, ktorý ale okamžite začal dávať zmysel pri dodatočnom rozdelení podľa druhu (Fig \ref{fig:clusters}). Na obrázku je jasne vidieť zhluky bodov, zodpovedajúce jednotlivým druhom. Rozmery zobáka by mohli byť potenciálne klasifikačné kritérium druhu.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=7.6cm]{img/clcd.png}
+  \caption{Porovnanie výšky a dĺžky zobáka vzhľadom ku druhu.}
+  \label{fig:clusters}
+\end{figure}
+\FloatBarrier
+
+Pre porovnanie distribúcií hmotností podľa druhu sa hodí husľový graf, ako vidno na \ref{fig:violin}. Prekvapivo to vyzerá, že jednotlivé druhy majú pomerne odlišné distribúcie.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=7.8cm]{img/bmdist.png}
+  \caption{Husľový graf znázorňujúci distribúcie hmotností tučniakov rozdelených podľa druhu.}
+  \label{fig:violin}
+\end{figure}
+
+Posledný vzťah, na ktorý sme sa pozreli ako potenciálneho kandidáta na klasifikáciu druhu, bol čas kladenia vajec. Na tento účel sme spravili histogram \ref{fig:egg}, na ktorom ale vidno, že všeky druhy kladú vajcia v priibližne rovnakom čase.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{img/date_egg.png}
+  \caption{Histogram kladenia vajec vzhľadom na čas}
+  \label{fig:egg}
+\end{figure}
+
+
+\FloatBarrier
+\section{Odlehlé hodnoty}
 Odlehlé hodnoty v datové sadě jsme hledali pomocí mezikvartilového rozpětí (IQR). Pro odlehlou hodnotu musí platit, že je menší než $q_1 - 1.5 \cdot \textrm{IQR}$ nebo větší než $q_3 + 1.5 \cdot \textrm{IQR}$, kde $q_1$ a $q_3$ jsou hodnoty prvního a třetího kvartilu. Takové hodnoty má smysl hledat pouze u numerických atributů.
 
 Pro žádný z atributů jsme nenašli odlehlé hodnoty, když jsme uvažovali celou datovou sadu. Jelikož se ale hodnoty atributů jako délka křídel a zobáku určitě liší v závislosti na druhu tučňáka, rozhodli jsme se hledat odlehlé hodnoty atributů pro jednotlivé druhy tučňáků.
 Tam už jsme odlehlé hodnoty našli.
 
 
-\section*{Chybějící hodnoty}
+\section{Chybějící hodnoty}
 \begin{table}[]
   \centering
   \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
